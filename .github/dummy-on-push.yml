@@ -1,0 +1,21 @@
+name: dummy-on-push
+
+on:
+  push:
+    branches:
+      - '**' # Runs on pushes to any branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Print branch name
+        run: |
+          echo "Branch pushed to: ${{ github.ref_name }}"
+
+      - name: Complete successfully
+        run: echo "This workflow completes successfully."

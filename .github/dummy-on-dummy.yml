@@ -1,0 +1,24 @@
+name: dummy-on-dummy
+
+on:
+  workflow_run:
+    workflows: [dummy-on-push]
+    types:
+      - completed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Print branch names
+        run: |
+          echo "Branch triggered in: ${{ github.ref_name }}"
+          echo "Branch pushed to: ${{ github.event.workflow_run.head_branch }}"
+          echo "Pull request branch: ${{ github.event.pull_request.head.ref }}"
+
+      - name: Print GitHub context
+        run: echo "${{ toJson(github) }}"
